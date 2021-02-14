@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Hogwart</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <h1>HOGWART'S DATA</h1>
+    
+    <table id="list">
+      <thead>
+        <tr>
+          <th>First name</th>
+          <th>Middle name</th>
+          <th>Nickname</th>
+          <th>Last name</th>
+          <th>Gender</th>
+          <th>Image filename</th>
+          <th>House</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- student template will be copied and inserted here -->
+        
+      </tbody>
+    </table>
+
+    <template id="student">
+      <tr>
+        <td data-field="firstName">FIRST NAME</td>
+        <td data-field="midName">MIDDLE NAME</td>
+        <td data-field="nickname">NICKNAME</td>
+        <td data-field="lastName">LAST NAME</td>
+        <td data-field="gender">GENDER</td>
+        <td data-field="imageFileName"><img src="" alt=""></td>
+        <td data-field="house">HOUSE</td>
+      </tr>
+    </template>
+    <script src="./hogwarts.js"></script>
+  </body>
+</html>
