@@ -4,39 +4,144 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Hogwart</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>Hogwarts</title>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <h1>HOGWART'S DATA</h1>
-    
-    <table id="list">
-      <thead>
-        <tr>
-          <th>First name</th>
-          <th>Middle name</th>
-          <th>Nickname</th>
-          <th>Last name</th>
-          <th>Gender</th>
-          <th>Image filename</th>
-          <th>House</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- student template will be copied and inserted here -->
-        
-      </tbody>
-    </table>
+    <!-------------- HEADER ----------------------------->
+    <header>
+      <!-------- Main Crest, Background and School's name --------->
+      <div class="logo-container">
+        <img src="./MainCrest.svg" alt="Hogwarts Crest" />
+        <p>School of Witchcraft and Wizardry</p>
+      </div>
 
+      <!-- Prefect | I-Squad |  Expelled | Girls | Boys | Search Bar -->
+      <div class="categories-and-houses">
+        <h3 class="heading">Student list</h3>
+        <div class="categories-container">
+          <button
+            class="filter prefects"
+            data-action="filter"
+            data-filter="prefects"
+          >
+            <span>Prefects</span>
+            <img src="./prefects-gold.svg" alt="prefects' badge" />
+          </button>
+          <button
+            class="filter i-squad"
+            data-action="filter"
+            data-filter="i-squad"
+          >
+            <span>Inquisitorial squad</span>
+            <img src="./i-squad-gold.svg" alt="inquisitorial squad" />
+          </button>
+          <button
+            class="filter expelled"
+            data-action="filter"
+            data-filter="expelled"
+          >
+            <span>Expelled</span>
+            <img src="./expel-gold.svg" alt="expelling" />
+          </button>
+          <button class="filter girls" data-action="filter" data-filter="girls">
+            <span>Girls</span>
+            <img src="./girls.svg" alt="girls" />
+          </button>
+          <button class="filter boys" data-action="filter" data-filter="boys">
+            <span>Boys</span>
+            <img src="./boys.svg" alt="boys" />
+          </button>
+          <input
+            type="text"
+            name="searchBar"
+            id="searchBar"
+            placeholder="Search..."
+          />
+        </div>
+
+        <!----- All students + Each House  ----->
+        <div class="houses-container">
+          <button
+            class="filter all-students"
+            data-action="filter"
+            data-filter="all"
+          >
+            All students |
+            <span>2</span>
+          </button>
+          <button
+            class="filter gryffindor"
+            data-action="filter"
+            data-filter="gryffindor"
+          >
+            Gryffindor |<span>5</span>
+          </button>
+          <button
+            class="filter slytherin"
+            data-action="filter"
+            data-filter="slytherin"
+          >
+            Slytherin | <span>5</span>
+          </button>
+          <button
+            class="filter ravenclaw"
+            data-action="filter"
+            data-filter="ravenclaw"
+          >
+            Ravenclaw | <span>5</span>
+          </button>
+          <button
+            class="filter hufflepuff"
+            data-action="filter"
+            data-filter="hufflepuff"
+          >
+            Hufflepuff | <span>5</span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <div class="table-wrapper">
+      <table id="table">
+        <thead>
+          <tr id="sorting">
+            <th
+              class="head-cell"
+              data-action="sort"
+              data-sort-direction="ascending"
+              data-sort="first-name"
+            >
+              First name ⇵
+            </th>
+            <!--<th>Middle name</th>
+            <th>Nickname</th>-->
+            <th
+              class="head-cell"
+              data-action="sort"
+              data-sort-direction="ascending"
+              data-sort="last-name"
+            >
+              Last name ⇵
+            </th>
+            <th class="head-cell">Gender</th>
+            <!--<th>Image filename</th>-->
+            <th class="head-cell">House</th>
+          </tr>
+        </thead>
+        <tbody class="table-bg"></tbody>
+      </table>
+    </div>
     <template id="student">
-      <tr>
-        <td data-field="firstName">FIRST NAME</td>
-        <td data-field="midName">MIDDLE NAME</td>
-        <td data-field="nickname">NICKNAME</td>
-        <td data-field="lastName">LAST NAME</td>
-        <td data-field="gender">GENDER</td>
-        <td data-field="imageFileName"><img src="" alt=""></td>
-        <td data-field="house">HOUSE</td>
+      <tr class="body-row">
+        <td class="body-cell" data-field="firstName">FIRST NAME</td>
+        <!-- <td data-field="midName">MIDDLE NAME</td>
+        <td data-field="nickname">NICKNAME</td>-->
+        <td class="body-cell" data-field="lastName">LAST NAME</td>
+        <td class="body-cell" data-field="gender">GENDER</td>
+        <!--<td data-field="imageFileName"><img src="" alt=""></td>-->
+        <td class="body-cell" data-field="house">
+          <img src="ggygg.svg" alt="" /><span>HOUSE</span>
+        </td>
       </tr>
     </template>
     <script src="./hogwarts.js"></script>

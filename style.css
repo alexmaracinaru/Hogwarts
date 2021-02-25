@@ -1,37 +1,318 @@
 * {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap");
+:root {
+  --darkblue: #1c2c3b;
+  --yellow: #f4df99;
+  --hufflepuff: #809cb5;
+  --gryffindor: #9b5b58;
+  --slytherin: #a7c4a0;
+  --ravenclaw: #bfa5a3;
 }
 body {
-    background-color: #93A676;
-}
-h1{
-    color: white;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-weight: 400;
-    text-align: center;
-    margin-top: 150px;
-
-}
-#list {
-    
-    color: white;
-    font-size: 25px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    margin:auto;
-    margin-top: 20px;
-    padding: 70px;
-    border: 1px solid white;
-    
+  font-family: "Space Mono", monospace;
+  background: url(./grunge-vintage-old-paper-background.jpg);
 }
 
-#list tbody tr td {
-    padding: 3px 20px;
-    font-size: 18px;
-  }
+/* ----- H E A D E R -----*/
+header {
+  display: flex;
+  align-items: flex-end;
+}
 
-#list thead tr th{
-    font-weight: 300;
-    padding-right: 30px;
+.logo-container {
+  margin-left: 50px;
+  margin-right: 30px;
+  width: 180px;
+  height: 370px;
+  background-color: var(--darkblue);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 0;
+}
+.logo-container img {
+  width: 150px;
+}
+.logo-container p {
+  color: var(--yellow);
+  font-size: 14px;
+  margin-left: 10px;
+  max-width: 150px;
+}
+
+/* ----- C A T E G O R I E S -T A B L E S -----*/
+
+.categories-container {
+  padding-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+h3 {
+  font-size: 35px;
+  font-weight: 400;
+}
+.categories {
+  display: flex;
+  justify-content: space-between;
+}
+.categories li {
+  list-style-type: none;
+  padding-right: 50px;
+}
+.table-wrapper {
+  max-width: 900px;
+  max-height: 650px;
+  overflow: auto;
+  margin-left: 250px;
+  box-shadow: 32px 83px 94px -28px rgb(97 80 55 / 50%);
+  margin-bottom: 100px;
+}
+.table-bg {
+  border: 5px solid #e8e0ca;
+}
+#table {
+  font-size: 25px;
+  font-family: "Space Mono", monospace;
+
+  width: 100%;
+}
+.heading {
+  margin-bottom: 20px;
+}
+.head-cell {
+  background-color: var(--darkblue);
+  color: white;
+  font-size: 18px;
+  font-weight: 300;
+  border-top: 1px solid black;
+  border-right: 1px solid white;
+  padding: 20px 30px;
+  text-align: left;
+  position: sticky;
+  top: 0;
+}
+.head-cell[data-action="sort"] {
+  cursor: pointer;
+}
+.head-cell:last-child {
+  border-right: none;
+}
+
+.body-cell {
+  background-color: white;
+  color: var(--darkblue);
+  padding: 30px;
+  font-size: 18px;
+  text-align: left;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.body-cell img {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  margin-right: 25px;
+}
+.body-cell span {
+  vertical-align: middle;
+}
+.body-row {
+  margin-bottom: 2px;
+  border-bottom: 5px solid rgb(232, 224, 202);
+}
+#table {
+  border-collapse: collapse;
+}
+.categories-and-houses .categories-container button {
+  border-style: none;
+  background: transparent;
+  font-size: 16px;
+  font-family: "Space Mono", monospace;
+}
+.houses-container {
+  margin-bottom: 20px;
+}
+
+/* ----- B U T T O N S -----*/
+button {
+  font-family: "Space Mono", monospace;
+  cursor: pointer;
+  outline: 0;
+  transition: all 0.2s;
+}
+button img {
+  width: 25px;
+  margin-left: 5px;
+}
+button:hover {
+  opacity: 80%;
+}
+.houses-container button {
+  padding: 15px 25px;
+  border: none;
+  border-radius: 5px;
+}
+
+/* ---------- ALL STUDENTS  HOVER + ACTIVE ----------*/
+.houses-container button.all-students {
+  background: linear-gradient(
+    90deg,
+    rgba(247, 228, 136, 1) 0%,
+    rgba(166, 127, 59, 1) 100%
+  );
+  border: 1px solid var(--darkblue);
+  color: var(--darkblue);
+  /* color: var(--gryffindor); */
+  /* background-color: var(--gryffindor);
+  color: white; */
+}
+.houses-container button.all-students:hover {
+  background: white;
+  color: var(--darkblue);
+  border: none;
+}
+.houses-container button.all-students.active {
+  background: white;
+  color: black;
+  border: none;
+}
+
+/* ---------- GRYFFINDOR  HOVER + ACTIVE ----------*/
+.houses-container button.gryffindor {
+  background: linear-gradient(
+    90deg,
+    rgba(247, 228, 136, 1) 0%,
+    rgba(166, 127, 59, 1) 100%
+  );
+  border: 1px solid var(--darkblue);
+  color: var(--darkblue);
+  /* color: var(--gryffindor); */
+  /* background-color: var(--gryffindor);
+  color: white; */
+}
+.houses-container button.gryffindor:hover {
+  background: var(--gryffindor);
+  color: white;
+  border: none;
+}
+.houses-container button.gryffindor.active {
+  background: var(--gryffindor);
+  color: white;
+  border: none;
+}
+/* ---------- SLYTHERIN  HOVER + ACTIVE ----------*/
+.houses-container button.slytherin {
+  background: linear-gradient(
+    90deg,
+    rgba(247, 228, 136, 1) 0%,
+    rgba(166, 127, 59, 1) 100%
+  );
+  border: 1px solid var(--darkblue);
+  color: var(--darkblue);
+  /* color: var(--slytherin); */
+  /* background-color: var(--slytherin);
+  color: white; */
+}
+.houses-container button.slytherin:hover {
+  background: var(--slytherin);
+  color: white;
+  border: none;
+}
+.houses-container button.slytherin.active {
+  background: var(--slytherin);
+  color: white;
+  border: none;
+}
+/* ---------- RAVENCLAW  HOVER + ACTIVE ----------*/
+.houses-container button.ravenclaw {
+  background: linear-gradient(
+    90deg,
+    rgba(247, 228, 136, 1) 0%,
+    rgba(166, 127, 59, 1) 100%
+  );
+  border: 1px solid var(--darkblue);
+  color: var(--darkblue);
+  /*  color: var(--ravenclaw); */
+  /*  background-color: var(--ravenclaw);
+  color: white; */
+}
+.houses-container button.ravenclaw:hover {
+  background: var(--ravenclaw);
+  color: white;
+  border: none;
+}
+.houses-container button.ravenclaw.active {
+  background: var(--ravenclaw);
+  color: white;
+  border: none;
+}
+/* ----------- HUFFLEPUFF  HOVER + ACTIVE ------------*/
+
+.houses-container button.hufflepuff {
+  background: linear-gradient(
+    90deg,
+    rgba(247, 228, 136, 1) 0%,
+    rgba(166, 127, 59, 1) 100%
+  );
+  border: 1px solid var(--darkblue);
+  color: var(--darkblue);
+  /* color: var(--hufflepuff); */
+  /* background-color: var(--hufflepuff);
+  color: white; */
+}
+.houses-container button.hufflepuff:hover {
+  background: var(--hufflepuff);
+  color: white;
+  border: none;
+}
+.houses-container button.hufflepuff.active {
+  background: var(--hufflepuff);
+  color: white;
+  border: none;
+}
+
+/*------------------PREFECTS-----------------*/
+
+.categories-container button.prefects {
+  /* background-color: var(--darkblue);
+  color: white; */
+
+  border: none;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+/*------------------INQUISITORIAL SQUAD-----------------*/
+.categories-container button.i-squad {
+  /* background-color: var(--darkblue);
+  color: white; */
+
+  border: none;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+.categories-container button.i-squad img {
+  width: 31px;
+}
+/*---------- E X P E L L E D ------------*/
+.categories-container button {
+  /* background-color: var(--darkblue);
+  color: white; */
+
+  border: none;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+
+#searchBar {
+  border: 1px solid rgba(166, 127, 59, 1);
+  padding: 10px;
+  border-radius: 5px;
 }
