@@ -80,6 +80,7 @@ const capitalize = (word) => {
 //
 //
 //
+
 //------------ P R E P A R I N G  D A T A  A F T E R  L O A D I N G ----------
 const prepareObjects = (jsonData) => {
   jsonData.forEach((jsonObject) => {
@@ -129,7 +130,8 @@ const prepareObjects = (jsonData) => {
 //
 //
 //
-// ---------- EVENT LISTENERS  FOR THE FILTERS ----------------------------
+
+// ---------- EVENT LISTENERS  FOR THE FILTERS  and M O D A L ----------------------------
 function registerListeners() {
   document
     .querySelector("[data-filter=gryffindor]")
@@ -225,7 +227,7 @@ function isBoy(student) {
 //
 //
 //
-// ---------- S O R T  I N G ---------------//
+// ---------- S O R T I N G ---------------//
 function sortByFirstName() {
   let sortedList = allStudents;
   sortedList = allStudents.sort(byFirstName);
@@ -311,10 +313,28 @@ const displayStudent = (student) => {
   //clone.querySelector("[data-field=imageFileName] img").src = student.imageFileName;
   clone.querySelector("[data-field=house] span").textContent = student.house;
   clone.querySelector("[data-field=house] img").src = student.house + ".svg";
+  //
+  //
+  //
+  //
+  //
+  // ---------  T H E   M O D A L ------------------------------------------------
+  // I want to click on, for instance Pansy, and open the modal. Pansy is under the
+  // .body-row class, therefore I have to first select it and add an eventListener to it.
+  clone.querySelector(".body-row").addEventListener("click", () => {
+    const modal = document.querySelector("#modal-background");
+    modal.classList.add("show");
+  });
 
   // append clone to table
   document.querySelector("#table tbody").appendChild(clone);
 };
+
+// removing the class .show from the modal so that it's closing
+document.querySelector(".close-btn").addEventListener("click", () => {
+  const modal = document.querySelector("#modal-background");
+  modal.classList.remove("show");
+});
 
 // ------------ T H E  A C T I V E  S T A T E  O F  T H E  B U T T O N S
 function buttonsActive() {
@@ -334,7 +354,7 @@ function searchThrough() {
   const searchBar = document.querySelector("#searchBar");
   //console.log(searchBar);
   searchBar.addEventListener("keyup", (e) => {
-    const searchString = e.target.value;
+    const searchString = e.target.value.toLowerCase();
     //console.log(student);
     const filteredStudents = allStudents.filter((student) => {
       return (
@@ -347,4 +367,14 @@ function searchThrough() {
   });
 }
 
-// ------ T H E  M O D A L -------
+// ----- Inquisitorial-Squad -----
+
+// ------
+/* // function hackTheSystem() {
+  if(hasBeenHacked === true) {
+// do something here
+  }
+else {
+  //dunno what here
+}
+} */
