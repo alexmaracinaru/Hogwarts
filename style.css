@@ -22,7 +22,6 @@ header {
   display: flex;
   align-items: flex-end;
 }
-
 .logo-container {
   margin-left: 50px;
   margin-right: 30px;
@@ -46,7 +45,6 @@ header {
 }
 
 /* ----- C A T E G O R I E S -T A B L E S -----*/
-
 .categories-container {
   padding-bottom: 30px;
   display: flex;
@@ -158,7 +156,7 @@ button:hover {
   border-radius: 5px;
 }
 
-/* ---------- ALL STUDENTS  HOVER + ACTIVE ----------*/
+/* ---------- ALL STUDENTS,  HOVER + ACTIVE ----------*/
 .houses-container button.all-students {
   background: linear-gradient(
     90deg,
@@ -182,7 +180,7 @@ button:hover {
   border: none;
 }
 
-/* ---------- GRYFFINDOR  HOVER + ACTIVE ----------*/
+/* ---------- GRYFFINDOR,  HOVER + ACTIVE ----------*/
 .houses-container button.gryffindor {
   background: linear-gradient(
     90deg,
@@ -205,7 +203,8 @@ button:hover {
   color: white;
   border: none;
 }
-/* ---------- SLYTHERIN  HOVER + ACTIVE ----------*/
+
+/* ---------- SLYTHERIN,  HOVER + ACTIVE ----------*/
 .houses-container button.slytherin {
   background: linear-gradient(
     90deg,
@@ -228,7 +227,8 @@ button:hover {
   color: white;
   border: none;
 }
-/* ---------- RAVENCLAW  HOVER + ACTIVE ----------*/
+
+/* ---------- RAVENCLAW,  HOVER + ACTIVE ----------*/
 .houses-container button.ravenclaw {
   background: linear-gradient(
     90deg,
@@ -251,8 +251,8 @@ button:hover {
   color: white;
   border: none;
 }
-/* ----------- HUFFLEPUFF  HOVER + ACTIVE ------------*/
 
+/* ----------- HUFFLEPUFF,  HOVER + ACTIVE ------------*/
 .houses-container button.hufflepuff {
   background: linear-gradient(
     90deg,
@@ -276,22 +276,20 @@ button:hover {
   border: none;
 }
 
-/*------------------PREFECTS-----------------*/
-
+/*------------------P R E F E C T S -----------------*/
 .categories-container button.prefects {
   /* background-color: var(--darkblue);
   color: white; */
-
   border: none;
   border-radius: 5px;
   display: inline-flex;
   align-items: center;
 }
-/*------------------INQUISITORIAL SQUAD-----------------*/
+
+/*---------- I N Q U I S I T O R I A L  S Q U A D  ------------*/
 .categories-container button.i-squad {
   /* background-color: var(--darkblue);
   color: white; */
-
   border: none;
   border-radius: 5px;
   display: inline-flex;
@@ -300,6 +298,7 @@ button:hover {
 .categories-container button.i-squad img {
   width: 31px;
 }
+
 /*---------- E X P E L L E D ------------*/
 .categories-container button {
   /* background-color: var(--darkblue);
@@ -311,8 +310,93 @@ button:hover {
   align-items: center;
 }
 
+/*---------- S E A R C H  B A R ------------*/
 #searchBar {
   border: 1px solid rgba(166, 127, 59, 1);
   padding: 10px;
   border-radius: 5px;
+  outline: none;
+  color: var(--darkblue);
+}
+
+#searchBar::placeholder {
+  color: var(--darkblue);
+}
+
+/*---------- M O D A L ------------*/
+.modal-background {
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  /*background: rgba(166, 127, 59, 0.3);*/
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+  animation: appear 0.3s ease-in-out;
+}
+.modal-background.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+#modal {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  box-shadow: 0px 0 80px 0px rgb(152 137 110);
+}
+.modal-upside {
+  display: flex;
+  align-items: center;
+}
+.modal-upside img {
+  flex-grow: 0.5;
+}
+.modal-text-up {
+  margin: 30px;
+}
+.modal-student {
+  font-size: 25px;
+}
+.desc-color {
+  color: var(--slytherin);
+  font-weight: bolder;
+  font-size: 18px;
+}
+.close-btn {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 20px;
+  font-size: 18px;
+}
+.modal-downside {
+  display: flex;
+}
+.modal-btns-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  margin-right: 100px;
+}
+.modal-btns-container button {
+  text-align: left;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+.modal-downside img {
+  width: 100px;
 }

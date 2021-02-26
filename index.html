@@ -10,11 +10,15 @@
   <body>
     <!-------------- HEADER ----------------------------->
     <header>
+
+
       <!-------- Main Crest, Background and School's name --------->
       <div class="logo-container">
         <img src="./MainCrest.svg" alt="Hogwarts Crest" />
         <p>School of Witchcraft and Wizardry</p>
       </div>
+
+
 
       <!-- Prefect | I-Squad |  Expelled | Girls | Boys | Search Bar -->
       <div class="categories-and-houses">
@@ -60,7 +64,9 @@
           />
         </div>
 
-        <!----- All students + Each House  ----->
+
+
+        <!----- A L L  S T U D E N T S  + E A C H  H O U S E ----->
         <div class="houses-container">
           <button
             class="filter all-students"
@@ -144,6 +150,33 @@
         </td>
       </tr>
     </template>
+
+
+    <!----- T H E  M O D A L ----->
+    <div class="modal-background" id="modal-background">
+      <div id="modal">
+        <div class="modal-upside">
+          <img src="./images/parkinson_p.png" alt="" />
+          <div class="modal-text-up">
+            <div class="modal-student ">Pansy Parkinson</div>
+            <div class="modal-house desc-color">Slytherin</div>
+            <div class="modal-blood-status desc-color">Pure blood</div>
+            <div class="gender desc-color">Girl</div>
+          </div>
+          <button class="close-btn">X</button>
+        </div>
+        <div class="modal-downside">
+          <div class="modal-btns-container">
+            <button class="modal-i-squad-btn">
+              Add to Inquisitorial Squad
+            </button>
+            <button class="modal-prefect-btn">Make prefect</button>
+            <button class="modal-expel-btn">Expel</button>
+          </div>
+          <img src="./Slytherin.svg" alt="" />
+    </div>
+  </div>
+
     <script src="./hogwarts.js"></script>
   </body>
 </html>
