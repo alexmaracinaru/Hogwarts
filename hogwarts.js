@@ -3,9 +3,7 @@
 window.addEventListener("DOMContentLoaded", init);
 
 const allStudents = [];
-//console.log(allStudents);
-
-// ----- P R O T O T Y P E -----
+//! PROTOTYPE
 const Student = {
   firstName: "unknown",
   midName: "",
@@ -14,22 +12,19 @@ const Student = {
   gender: "unknown",
   imageFileName: "",
   house: "unknown",
+  prefect: false,
+  iSquad: false,
+  expelled: false,
 };
-//
-//
-//
 
-// ------ I N I T I A T I N G --------
+//! INITIALIZING
 function init() {
   registerListeners();
   loadJSON();
   buttonsActive();
 }
-//
-//
-//
 
-// ----------- L O A D I N G -------------
+//! LOADING  J•SON
 const loadJSON = () => {
   fetch("./students.json")
     .then((response) => response.json())
@@ -41,18 +36,18 @@ const loadJSON = () => {
     });
 };
 
-// ------------ F A M I L Y  JSON --------------------------------
-/*  const loadJSON2 = () => {
+//! FAMILY  J•SON
+
+/* const loadJSON2 = () => {
   fetch("https://petlatkea.dk/2021/hogwarts/families.json")
-  .then((response => response.json())
-  .then((familiesData) =>{
-    prepareFamilyStatus(familiesData);
-  }) */
-//
-//
-//
-//
-// --------- T H E  C A P I T A L I Z A T I O N ---------
+    .then((response) => response.json())
+    .then((familiesData) => {
+      prepareFamilyStatus(familiesData);
+    });
+}; */
+
+//! ••••• CAPITALIZATION •••••
+
 const capitalize = (word) => {
   let capitalizedWord;
   const firstL = word.substring(0, 1).toUpperCase();
@@ -78,26 +73,19 @@ const capitalize = (word) => {
     const remainingLetters = word.substring(1).toLowerCase();
     capitalizedWord = firstL + remainingLetters;
   }
-  //console.log(capitalizedWord);
   if (capitalizedWord.trim()) {
     return capitalizedWord;
   } else {
     return "";
   }
 };
-//
-//
-//
 
-//------------ P R E P A R I N G  D A T A  A F T E R  L O A D I N G ----------
+//! ••••• Preparing data after loading •••••
 const prepareObjects = (jsonData) => {
   jsonData.forEach((jsonObject) => {
-    // New object with cleaned data - and store that in the allStudents array
+    // New object with cleaned data + store it in the allStudents array.
     const student = Object.create(Student);
-    //console.log(jsonObject);
-
-    // ------------ C L E A N I N G  U P  T H E  J S O N -----------------
-
+    //?Cleaning up the Json
     const rawFullName = jsonObject.fullname.trim();
     const firstLetter = rawFullName.substring(0, 1);
     const firstSpace = rawFullName.indexOf(" ");
@@ -118,10 +106,11 @@ const prepareObjects = (jsonData) => {
     if (midName.startsWith('"') && midName.endsWith('"')) {
       nickname = midName;
       midName = "";
-      //console.log(nickname);
     }
-
-    // ----------- F I N A L  C L E A N I N G  A N D  D I S P L A Y I N G ----------
+    //?Final cleaning and displaying
+    student.prefect = false;
+    student.expelled = false;
+    student.iSquad = false;
     student.firstName = capitalize(firstName);
     student.midName = capitalize(midName);
     student.nickname = capitalize(nickname);
@@ -131,15 +120,161 @@ const prepareObjects = (jsonData) => {
     student.house = capitalize(jsonObject.house.trim());
     allStudents.push(student);
   });
-
   displayList(allStudents);
 };
-//
-//
-//
-//
 
-// ---------- EVENT LISTENERS  FOR THE FILTERS  and M O D A L ----------------------------
+// todo THE Z-A PART OF IT!!!!!!
+
+//? Clearing the list, taking eash student and displaying it
+const displayList = (studentList) => {
+  // clear the list
+  document.querySelector("#table tbody").innerHTML = "";
+  // display each student from the list that comes in as a parameter
+  studentList.forEach(displayStudent);
+};
+
+//! ••••• TEMPLATE + CLONING + APPENDING  + !!!MODAL!!! •••••
+const displayStudent = (student) => {
+  const clone = document
+    .querySelector("template#student")
+    .content.cloneNode(true);
+  clone.querySelector("[data-field=firstName]").textContent = student.firstName;
+  clone.querySelector("[data-field=lastName]").textContent = student.lastName;
+  clone.querySelector("[data-field=gender]").textContent = student.gender;
+  clone.querySelector("[data-field=house] span").textContent = student.house;
+  clone.querySelector("[data-field=house] img").src = student.house + ".svg";
+  //* ••••• REGARDING THE MODAL •••••
+  // My first thought process: I wanna click on, say Pansy, and open the modal.Pansy is under the
+  //.body-row (css class) therefore I have to first select it and add an eventListener to it.
+  clone.querySelector(".body-row").addEventListener("click", () => {
+    openModal(student);
+  });
+
+  // appending clone to table------------------------------
+  document.querySelector("#table tbody").appendChild(clone);
+};
+
+//! ••••••  T H E   M O D A L •••••
+
+function openModal(student) {
+  const modal = document.querySelector("#modal");
+  const modalBg = document.querySelector("#modal-background");
+  //one way of changing the colors.
+  modal.className = "";
+  modal.classList.add(student.house.toLowerCase());
+  // ONE WAY OF CHANGING COLORS -------------------------------
+  /*  modal.querySelector(
+    ".modal-text-up"
+  ).style.color = `var(--${student.house.toLowerCase()})`; */
+  //ANOTHER WAT OF CHANGING COLORS
+  modal.querySelector(".modal-house").textContent = student.house;
+  console.log(student);
+  modal.querySelector(".modal-student").textContent =
+    student.firstName +
+    " " +
+    student.midName +
+    " " +
+    student.nickname +
+    " " +
+    student.lastName;
+  modal.querySelector(".gender").textContent = student.gender;
+  modal.querySelector(".modal-upside img").src = student.imageFileName;
+  let badgeSrc = `./${student.house}.svg`;
+  const prefectBtn = modal.querySelector(".modal-prefect-btn");
+  if (student.prefect) {
+    badgeSrc = "./PrefectsBadge.svg";
+    prefectBtn.textContent = "Revoke prefect";
+  } else {
+    prefectBtn.textContent = "Appoint prefect";
+  }
+  if (student.iSquad) {
+    badgeSrc = "./iSquadBadge.svg";
+  }
+  modal.querySelector(".badge").src = badgeSrc;
+  modalBg.classList.add("show");
+
+  // *  APPOINT PREFECT
+  function togglePrefect() {
+    // √ toggle prefect and return to house svg
+    //? the long version of the toggle
+    if (student.prefect === true) {
+      student.prefect = false;
+    } else {
+      student.prefect = true;
+    }
+    //? the short version of the code above
+    // student.prefect = !student.prefect;
+    // refresh the modal
+    openModal(student);
+    modal
+      .querySelector(".modal-prefect-btn")
+      .removeEventListener("click", togglePrefect);
+  }
+  modal
+    .querySelector(".modal-prefect-btn")
+    .addEventListener("click", togglePrefect);
+
+  // * ADD TO I-SQUAD
+  modal.querySelector(".modal-i-squad-btn").addEventListener("click", () => {
+    student.iSquad = true;
+    // refresh the modal
+    openModal(student);
+  });
+  // * EXPEL
+  modal.querySelector(".modal-expel-btn").addEventListener("click", () => {
+    student.expel = true;
+    // todo add a layer (multiply mode) and the word "EXPELLED"
+    // refresh the modal
+    openModal(student);
+  });
+}
+
+// closing the modal when clicking X
+document.querySelector(".close-btn").addEventListener("click", () => {
+  const modal = document.querySelector("#modal-background");
+  modal.classList.remove("show");
+});
+// closing the modal when clicking on the background also
+const modalBg = document.querySelector("#modal-background");
+modalBg.addEventListener("click", (event) => {
+  // if clicked element (event.target) is the same as the modal background then we want to hide the modal
+  // otherwise the click was inside the modal and we don't want to close it
+  if (event.target === modalBg) {
+    modalBg.classList.remove("show");
+  }
+});
+
+//* The active state of the buttons_______________________________
+function buttonsActive() {
+  document.querySelectorAll("button.filter").forEach((button) => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll("button.filter").forEach((button) => {
+        button.classList.remove("active");
+      });
+      button.classList.add("active");
+    });
+  });
+}
+
+//* THE  SEARCH_______________________________________________
+// Getting the element
+function searchThrough() {
+  const searchBar = document.querySelector("#searchBar");
+  //console.log(searchBar);
+  searchBar.addEventListener("keyup", (e) => {
+    const searchString = e.target.value.toLowerCase();
+    //console.log(student);
+    const filteredStudents = allStudents.filter((student) => {
+      return (
+        student.firstName.toLowerCase().includes(searchString) ||
+        student.lastName.toLowerCase().includes(searchString)
+      );
+    });
+    displayList(filteredStudents);
+  });
+}
+
+//* EventListeners for FILTERS + MODAL_________________________________
 function registerListeners() {
   document
     .querySelector("[data-filter=gryffindor]")
@@ -166,17 +301,14 @@ function registerListeners() {
     .querySelector("[data-sort=first-name]")
     .addEventListener("click", () => sortByFirstName());
   document
-    .querySelector("[data-sort=last-name]")
-    .addEventListener("click", () => sortByLastName());
+    .querySelector("[data-filter=prefects]")
+    .addEventListener("click", () => filterListByPrefect());
+  document
+    .querySelector("[data-filter=i-squad]")
+    .addEventListener("click", () => filterListByInqSquad());
 }
 
-//
-//
-//
-//
-//
-//
-// ---------- F I L T E R I N G -------------------------//
+//* F I L T E R I N G______________________________
 function filterListByHouse(studentsHouse) {
   let filteredList = allStudents;
   if (studentsHouse === "gryffindor") {
@@ -193,7 +325,6 @@ function filterListByHouse(studentsHouse) {
   }
   displayList(filteredList);
 }
-
 function filterListByGender(studentGender) {
   let filteredList = allStudents;
   if (studentGender === "girl") {
@@ -201,6 +332,21 @@ function filterListByGender(studentGender) {
   } else {
     filteredList = allStudents.filter(isBoy);
   }
+  displayList(filteredList);
+}
+function filterListByPrefect() {
+  let filteredList = allStudents;
+  filteredList = allStudents.filter(isPrefect);
+  displayList(filteredList);
+}
+function filterListByInqSquad() {
+  let filteredList = allStudents;
+  filteredList = allStudents.filter(isInqSquad);
+  displayList(filteredList);
+}
+function filterListByExpelled() {
+  let filteredList = allStudents;
+  filteredList = allStudents.filter(isExpelled);
   displayList(filteredList);
 }
 
@@ -227,15 +373,16 @@ function isBoy(student) {
   return student.gender === "Boy";
 }
 
-//
-//
-//
-//
-//
-//
-//
-//
-// ---------- S O R T I N G ---------------//
+function isPrefect(student) {
+  return student.prefect === true;
+}
+function isInqSquad(student) {
+  return student.iSquad === true;
+}
+function isExpelled(student) {
+  return student.expelled === true;
+}
+//* S O R T I N G_________________________
 function sortByFirstName() {
   let sortedList = allStudents;
   sortedList = allStudents.sort(byFirstName);
@@ -261,23 +408,7 @@ function byLastName(student1, student2) {
     return 1;
   }
 }
-//
-//
-//
-//
-//
-
-// TODO!!!!!!! THE Z-A PART OF IT!!!!!!
-//
-//
-//
-//
-//
-//
-//
-//
-
-//---- SHOWING THE NUMBER OF STUDENTS IN THEIR RESPECTIVE BUTTONS --------
+//* SHOWING  nº OF STUDENTS IN THE BUTTONS
 function showTotalNumber() {
   const all = allStudents.length;
   //console.log(all);
@@ -300,120 +431,3 @@ function showTotalNumber() {
     ".filter.hufflepuff span"
   ).textContent = onlyHufflepuffNumber;
 }
-
-// --- CLEARING THE LIST AND THEN TAKING EACH STUDENT AND DISPLAYING IT ------------
-const displayList = (studentList) => {
-  //console.log(studentList);
-  // clear the list
-  document.querySelector("#table tbody").innerHTML = "";
-
-  // display each student from the list that comes in as a parameter
-  studentList.forEach(displayStudent);
-};
-
-// ------ TEMPLATE + CLONING + COPY + APPENDING -------------
-const displayStudent = (student) => {
-  // create clone
-  const clone = document
-    .querySelector("template#student")
-    .content.cloneNode(true);
-
-  // set clone data
-  clone.querySelector("[data-field=firstName]").textContent = student.firstName;
-  //clone.querySelector("[data-field=midName]").textContent = student.midName;
-  //clone.querySelector("[data-field=nickname]").textContent = student.nickname;
-  clone.querySelector("[data-field=lastName]").textContent = student.lastName;
-  clone.querySelector("[data-field=gender]").textContent = student.gender;
-  //clone.querySelector("[data-field=imageFileName] img").src = student.imageFileName;
-  clone.querySelector("[data-field=house] span").textContent = student.house;
-  clone.querySelector("[data-field=house] img").src = student.house + ".svg";
-
-  // ---------  T H E   M O D A L ------------------------------------------------
-  // I want to click on, for instance Pansy, and open the modal. Pansy is under the
-  // .body-row class, therefore I have to first select it and add an eventListener to it.
-  clone.querySelector(".body-row").addEventListener("click", () => {
-    const modal = document.querySelector("#modal");
-    const modalBg = document.querySelector("#modal-background");
-    //one way of changing the colors.
-    modal.className = "";
-    modal.classList.add(student.house.toLowerCase());
-    //another way of changing colors
-    /*  modal.querySelector(
-      ".modal-text-up"
-    ).style.color = `var(--${student.house.toLowerCase()})`; */
-    modal.querySelector(".modal-house").textContent = student.house;
-    console.log(student);
-    modal.querySelector(".modal-student").textContent =
-      student.firstName +
-      " " +
-      student.midName +
-      " " +
-      student.nickname +
-      " " +
-      student.lastName;
-    modal.querySelector(".gender").textContent = student.gender;
-    modal.querySelector(".modal-upside img").src = student.imageFileName;
-    modalBg.classList.add("show");
-  });
-
-  // appending clone to table
-  document.querySelector("#table tbody").appendChild(clone);
-};
-
-// closes the modal when clicking X
-document.querySelector(".close-btn").addEventListener("click", () => {
-  const modal = document.querySelector("#modal-background");
-  modal.classList.remove("show");
-});
-// closes the modal when clicking on the background also.
-document.querySelector("#modal-background").addEventListener("click", () => {
-  const modal = document.querySelector("#modal-background");
-  modal.classList.remove("show");
-});
-
-// the actual student data in the modal
-
-//document.querySelector("[data-field=midName]").textContent = student.midName;
-
-// ------------ T H E  A C T I V E  S T A T E  O F  T H E  B U T T O N S
-function buttonsActive() {
-  document.querySelectorAll("button.filter").forEach((button) => {
-    button.addEventListener("click", () => {
-      document.querySelectorAll("button.filter").forEach((button) => {
-        button.classList.remove("active");
-      });
-      button.classList.add("active");
-    });
-  });
-}
-
-// ------  T H E  S E A R C H * By name and house ------
-// Getting the element
-function searchThrough() {
-  const searchBar = document.querySelector("#searchBar");
-  //console.log(searchBar);
-  searchBar.addEventListener("keyup", (e) => {
-    const searchString = e.target.value.toLowerCase();
-    //console.log(student);
-    const filteredStudents = allStudents.filter((student) => {
-      return (
-        student.firstName.toLowerCase().includes(searchString) ||
-        student.lastName.toLowerCase().includes(searchString) ||
-        student.house.toLowerCase().includes(searchString)
-      );
-    });
-    displayList(filteredStudents);
-  });
-}
-
-// ----- Inquisitorial-Squad -----
-
-// ------
-/* // function hackTheSystem() {
-  if(hasBeenHacked === true) {
-// do something here
-  }
-else {
-  //dunno what here
-}
-} */

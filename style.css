@@ -351,6 +351,18 @@ button:hover {
   border-radius: 5px;
   box-shadow: 0px 0 80px 0px rgb(152 137 110);
 }
+#modal.hufflepuff .desc-color {
+  color: var(--hufflepuff);
+}
+#modal.slytherin .desc-color {
+  color: var(--slytherin);
+}
+#modal.gryffindor .desc-color {
+  color: var(--gryffindor);
+}
+#modal.ravenclaw .desc-color {
+  color: var(--ravenclaw);
+}
 .modal-upside {
   display: flex;
   align-items: center;
@@ -361,11 +373,13 @@ button:hover {
 .modal-text-up {
   margin: 30px;
 }
+.modal-text-up .modal-student {
+  color: var(--darkblue);
+}
 .modal-student {
   font-size: 25px;
 }
 .desc-color {
-  color: var(--slytherin);
   font-weight: bolder;
   font-size: 18px;
 }
