@@ -414,3 +414,8 @@ button:hover {
 .modal-downside img {
   width: 100px;
 }
+
+.modal.expelled {
+  z-index: 5;
+  background-color: rgba(30, 30, 30, 0.7);
+}

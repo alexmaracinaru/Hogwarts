@@ -159,6 +159,9 @@ const displayStudent = (student) => {
 function openModal(student) {
   const modal = document.querySelector("#modal");
   const modalBg = document.querySelector("#modal-background");
+  modal
+    .querySelector(".modal-prefect-btn")
+    .removeEventListener("click", togglePrefect);
   //one way of changing the colors.
   modal.className = "";
   modal.classList.add(student.house.toLowerCase());
@@ -179,8 +182,12 @@ function openModal(student) {
     student.lastName;
   modal.querySelector(".gender").textContent = student.gender;
   modal.querySelector(".modal-upside img").src = student.imageFileName;
+
+  //* REPLACING BADGES WHEN THE STATUS OF THE STUDENT CHANGES
   let badgeSrc = `./${student.house}.svg`;
   const prefectBtn = modal.querySelector(".modal-prefect-btn");
+  const iSquaqBtn = modal.querySelector(".modal-i-squad-btn");
+  const expelBtn = modal.querySelector(".modal-expel-btn");
   if (student.prefect) {
     badgeSrc = "./PrefectsBadge.svg";
     prefectBtn.textContent = "Revoke prefect";
@@ -189,40 +196,44 @@ function openModal(student) {
   }
   if (student.iSquad) {
     badgeSrc = "./iSquadBadge.svg";
+    iSquaqBtn.textContent = "Remove from Inq-Squad";
+  } else {
+    iSquaqBtn.textContent = "Add to Inquisitorial Squad";
+  }
+  if (student.expelled) {
+    badgeSrc = "./expel.svg";
   }
   modal.querySelector(".badge").src = badgeSrc;
+
   modalBg.classList.add("show");
 
-  // *  APPOINT PREFECT
+  // *  APPOINT PREFECT EVENT
   function togglePrefect() {
     // √ toggle prefect and return to house svg
     //? the long version of the toggle
-    if (student.prefect === true) {
+    /* if (student.prefect === true) {
       student.prefect = false;
     } else {
       student.prefect = true;
-    }
+    } */
     //? the short version of the code above
-    // student.prefect = !student.prefect;
+    student.prefect = !student.prefect;
     // refresh the modal
     openModal(student);
-    modal
-      .querySelector(".modal-prefect-btn")
-      .removeEventListener("click", togglePrefect);
   }
   modal
     .querySelector(".modal-prefect-btn")
-    .addEventListener("click", togglePrefect);
+    .addEventListener("click", togglePrefect, { once: true });
 
-  // * ADD TO I-SQUAD
+  // * ADD TO I-SQUAD EVENT
   modal.querySelector(".modal-i-squad-btn").addEventListener("click", () => {
     student.iSquad = true;
     // refresh the modal
     openModal(student);
   });
-  // * EXPEL
+  // * EXPEL EVENT
   modal.querySelector(".modal-expel-btn").addEventListener("click", () => {
-    student.expel = true;
+    student.expelled = true;
     // todo add a layer (multiply mode) and the word "EXPELLED"
     // refresh the modal
     openModal(student);
