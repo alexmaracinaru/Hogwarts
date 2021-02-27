@@ -3,16 +3,16 @@
 window.addEventListener("DOMContentLoaded", init);
 
 const allStudents = [];
-console.log(allStudents);
+//console.log(allStudents);
 
 // ----- P R O T O T Y P E -----
 const Student = {
   firstName: "unknown",
-  //midName: "unknown",
-  //nickname: "unknown",
+  midName: "",
+  nickname: "",
   lastName: "unknown",
   gender: "unknown",
-  //imageFileName: "unknown",
+  imageFileName: "",
   house: "unknown",
 };
 //
@@ -40,6 +40,14 @@ const loadJSON = () => {
       searchThrough();
     });
 };
+
+// ------------ F A M I L Y  JSON --------------------------------
+/*  const loadJSON2 = () => {
+  fetch("https://petlatkea.dk/2021/hogwarts/families.json")
+  .then((response => response.json())
+  .then((familiesData) =>{
+    prepareFamilyStatus(familiesData);
+  }) */
 //
 //
 //
@@ -74,7 +82,7 @@ const capitalize = (word) => {
   if (capitalizedWord.trim()) {
     return capitalizedWord;
   } else {
-    return "Non existing";
+    return "";
   }
 };
 //
@@ -109,17 +117,17 @@ const prepareObjects = (jsonData) => {
     let nickname = "";
     if (midName.startsWith('"') && midName.endsWith('"')) {
       nickname = midName;
-      midName = "Non existing";
+      midName = "";
       //console.log(nickname);
     }
 
     // ----------- F I N A L  C L E A N I N G  A N D  D I S P L A Y I N G ----------
     student.firstName = capitalize(firstName);
-    //student.midName = capitalize(midName);
-    //student.nickname = capitalize(nickname);
+    student.midName = capitalize(midName);
+    student.nickname = capitalize(nickname);
     student.lastName = capitalize(lastName);
     student.gender = capitalize(jsonObject.gender);
-    //student.imageFileName = imageFileName; // have to somehow add imageFileNames!
+    student.imageFileName = imageFileName; // have to somehow add imageFileNames!
     student.house = capitalize(jsonObject.house.trim());
     allStudents.push(student);
   });
@@ -253,7 +261,13 @@ function byLastName(student1, student2) {
     return 1;
   }
 }
+//
+//
+//
+//
+//
 
+// TODO!!!!!!! THE Z-A PART OF IT!!!!!!
 //
 //
 //
@@ -313,28 +327,53 @@ const displayStudent = (student) => {
   //clone.querySelector("[data-field=imageFileName] img").src = student.imageFileName;
   clone.querySelector("[data-field=house] span").textContent = student.house;
   clone.querySelector("[data-field=house] img").src = student.house + ".svg";
-  //
-  //
-  //
-  //
-  //
+
   // ---------  T H E   M O D A L ------------------------------------------------
   // I want to click on, for instance Pansy, and open the modal. Pansy is under the
   // .body-row class, therefore I have to first select it and add an eventListener to it.
   clone.querySelector(".body-row").addEventListener("click", () => {
-    const modal = document.querySelector("#modal-background");
-    modal.classList.add("show");
+    const modal = document.querySelector("#modal");
+    const modalBg = document.querySelector("#modal-background");
+    //one way of changing the colors.
+    modal.className = "";
+    modal.classList.add(student.house.toLowerCase());
+    //another way of changing colors
+    /*  modal.querySelector(
+      ".modal-text-up"
+    ).style.color = `var(--${student.house.toLowerCase()})`; */
+    modal.querySelector(".modal-house").textContent = student.house;
+    console.log(student);
+    modal.querySelector(".modal-student").textContent =
+      student.firstName +
+      " " +
+      student.midName +
+      " " +
+      student.nickname +
+      " " +
+      student.lastName;
+    modal.querySelector(".gender").textContent = student.gender;
+    modal.querySelector(".modal-upside img").src = student.imageFileName;
+    modalBg.classList.add("show");
   });
 
-  // append clone to table
+  // appending clone to table
   document.querySelector("#table tbody").appendChild(clone);
 };
 
-// removing the class .show from the modal so that it's closing
+// closes the modal when clicking X
 document.querySelector(".close-btn").addEventListener("click", () => {
   const modal = document.querySelector("#modal-background");
   modal.classList.remove("show");
 });
+// closes the modal when clicking on the background also.
+document.querySelector("#modal-background").addEventListener("click", () => {
+  const modal = document.querySelector("#modal-background");
+  modal.classList.remove("show");
+});
+
+// the actual student data in the modal
+
+//document.querySelector("[data-field=midName]").textContent = student.midName;
 
 // ------------ T H E  A C T I V E  S T A T E  O F  T H E  B U T T O N S
 function buttonsActive() {
