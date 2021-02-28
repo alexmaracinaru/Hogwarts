@@ -16,7 +16,36 @@ body {
   font-family: "Space Mono", monospace;
   background: url(./grunge-vintage-old-paper-background.jpg);
 }
-
+/* ----- TITLE SCREEN -----*/
+.ts-bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-image: url(./grunge-vintage-old-paper-background.jpg);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: all 1.8s ease-in-out;
+}
+.ts-bg.hidden {
+  transform: translateY(-120vh);
+}
+.ts-bg img {
+  width: 350px;
+  margin: auto;
+}
+.ts-bg button {
+  border: 1px solid var(--darkblue);
+  background: none;
+  max-width: 350px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  padding: 20px 60px;
+  font-size: 15px;
+}
 /* ----- H E A D E R -----*/
 header {
   display: flex;
@@ -41,7 +70,7 @@ header {
   color: var(--yellow);
   font-size: 14px;
   margin-left: 10px;
-  max-width: 150px;
+  max-width: 109px;
 }
 
 /* ----- C A T E G O R I E S -T A B L E S -----*/
