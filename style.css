@@ -94,7 +94,7 @@ h3 {
 .table-wrapper {
   max-width: 900px;
   max-height: 650px;
-  overflow: auto;
+  overflow-y: auto;
   margin-left: 250px;
   box-shadow: 32px 83px 94px -28px rgb(97 80 55 / 50%);
   margin-bottom: 100px;
