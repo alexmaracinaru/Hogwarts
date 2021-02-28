@@ -510,3 +510,48 @@ document.querySelector(".ts-bg button").addEventListener("click", () => {
 });
 
 //! •••••• HACK THE STYSTEM ••••••
+
+function hackTheSystem() {
+  const myself = Object.create(Student);
+  myself.firstName = "Alexandra";
+  myself.lastName = "Maracinaru";
+  myself.midName = "";
+  myself.nickname = "";
+  myself.imageFileName = "myself.jpg";
+  myself.house = "Ravenclaw";
+  myself.gender = "Woman";
+  myself.prefect = false;
+  myself.expelled = false;
+  myself.bloodStatus = "Pure-blood, baby!";
+  myself.iSquad = false;
+  allStudents.unshift(myself);
+  displayList(allStudents);
+}
+
+//? expelling pseudocode
+// click on 'Expel' in the modal
+// remove class hidden
+// write 'Expelled'
+// create a different array for the expelled students
+// remove them from allStudents
+// add them to the expelledStudents
+
+//? prefects pseudocode
+// click on 'Make prefect' in the modal
+// replace the house badge with the prefect badge
+// replace 'Make prefect' with 'Revoke prefect'
+// show outside the modal when clicked on 'prefects' filter
+// return to house badge when clicked on 'Revoke prefect'
+
+//? Blood status pseudocode
+// load the other json
+// extract the bloods by last name of the student
+// if student.pure === true, return 'Pure-blood'
+// else if student.half === ture, return 'Half-blood'
+// else just 'Muggle'
+// if student.pure -> eligible for inquisitorial squad
+// medd up the blood when hackTheSystem (blood-type random?!)
+
+//? hackTheSystem function
+// insert my name into the allStudents
+// when click on 'Expel' alert 'Cannot expel, duh!'
