@@ -165,6 +165,7 @@ function openModal(student) {
   //one way of changing the colors.
   modal.className = "";
   modal.classList.add(student.house.toLowerCase());
+
   // ONE WAY OF CHANGING COLORS -------------------------------
   /*  modal.querySelector(
     ".modal-text-up"
@@ -195,13 +196,16 @@ function openModal(student) {
     prefectBtn.textContent = "Appoint prefect";
   }
   if (student.iSquad) {
-    badgeSrc = "./iSquadBadge.svg";
     iSquaqBtn.textContent = "Remove from Inq-Squad";
+    modal.querySelector(".iSquadBadge").classList.remove("hidden");
   } else {
     iSquaqBtn.textContent = "Add to Inquisitorial Squad";
+    modal.querySelector(".iSquadBadge").classList.add("hidden");
   }
   if (student.expelled) {
-    badgeSrc = "./expel.svg";
+    modal.querySelector(".expelled-overlay").classList.add("active");
+  } else {
+    modal.querySelector(".expelled-overlay").classList.remove("active");
   }
   modal.querySelector(".badge").src = badgeSrc;
 
@@ -317,6 +321,9 @@ function registerListeners() {
   document
     .querySelector("[data-filter=i-squad]")
     .addEventListener("click", () => filterListByInqSquad());
+  document
+    .querySelector("[data-filter=expelled]")
+    .addEventListener("click", () => filterListByExpelled());
 }
 
 //* F I L T E R I N G______________________________
