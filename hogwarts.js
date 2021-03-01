@@ -3,6 +3,7 @@ window.addEventListener("DOMContentLoaded", init);
 
 const allStudents = [];
 const expelledStudents = [];
+let hasBeenHacked = false;
 
 let activeModalStudent = null;
 
@@ -223,6 +224,10 @@ modal.querySelector(".modal-i-squad-btn").addEventListener("click", () => {
 
 //? EXPEL student and remove from allStudents list
 modal.querySelector(".modal-expel-btn").addEventListener("click", () => {
+  if (hasBeenHacked === true && activeModalStudent.firstName === "Alexandra") {
+    alert("Cannot expel me, yo!");
+    return;
+  }
   activeModalStudent.expelled = true;
   //find the index of the active student
   let index = allStudents.indexOf(activeModalStudent);
@@ -517,15 +522,16 @@ function hackTheSystem() {
   myself.lastName = "Maracinaru";
   myself.midName = "";
   myself.nickname = "";
-  myself.imageFileName = "myself.jpg";
+  myself.imageFileName = "myself.png";
   myself.house = "Ravenclaw";
-  myself.gender = "Woman";
-  myself.prefect = false;
+  myself.gender = "Girl";
+  myself.prefect = true;
   myself.expelled = false;
   myself.bloodStatus = "Pure-blood, baby!";
-  myself.iSquad = false;
+  myself.iSquad = true;
   allStudents.unshift(myself);
   displayList(allStudents);
+  hasBeenHacked = true;
 }
 
 //? expelling pseudocode
